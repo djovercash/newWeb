@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,200i,400,400i,600,600i,800,800i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Trade+Winds" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>DO</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function() {
+        var navbarArray = window.top.document.querySelectorAll('.navbar')
+        navbarArray[0].style.opacity = "1"
+
+        function checkHeight() {
+          var header = window.top.document.querySelector('.welcome-header__container')
+          header.style.height = window.innerHeight + "px"
+        }
+
+        function navbarVisible() {
+          if(window.top.scrollY >= window.innerHeight) {
+            navbarArray[1].style.opacity = "1"
+            navbarArray[1].style.position = "fixed"
+            navbarArray[1].style.backgroundColor = "rgba(0, 0, 0, 0.8)"
+            navbarArray[1].style.zIndex = "10"
+          } else {
+            navbarArray[1].style.opacity = "0"
+            navbarArray[1].style.zIndex = "unset"
+          }
+        }
+
+        function navbarSpan() {
+          var navbarSpanArray = window.top.document.querySelectorAll('.navbar-span')
+          if(window.innerWidth <= 769) {
+            for(var i = 0; i < navbarSpanArray.length; i++) {
+              if(navbarSpanArray[i].children.length === 0) {
+                navbarSpanArray[i].appendChild(document.createElement('br'))
+              }
+            }
+          } else {
+            for(var j = 0; j < navbarSpanArray.length; j++) {
+              if(navbarSpanArray[j].children.length === 1) {
+                navbarSpanArray[j].children[0].remove()
+              }
+            }
+          }
+        }
+
+        function welcomeAppear() {
+          var welcomeTextArray = window.top.document.querySelector('.welcome-header__content--text').children[0]
+          welcomeTextArray.style.opacity = '1'
+          welcomeTextArray.style.left = '0'
+        }
+
+        function welcomeName() {
+          var welcomeTextArray = window.top.document.querySelector('.welcome-header__content--text').children[1]
+          welcomeTextArray.style.opacity = '1'
+          welcomeTextArray.style.left = '0'
+        }
+
+        function flashingText() {
+          var webTitle = window.top.document.querySelector('.webDev-container__title').children[0]
+          if(webTitle.style.opacity === "0") {
+            webTitle.style.opacity = "1"
+          } else {
+            webTitle.style.opacity = "0"
+          }
+        }
+
+        // WEB DEVELOPMENT FUNCTIONS
+
+        function displayProjects(count) {
+          var projectsArray = window.top.document.querySelector('.projects-container__list').children
+          if(count < 3) {
+            setTimeout(function() {
+              if(count === 0) {
+                projectsArray[count].style.top = "0"
+              } else if (count === 1) {
+                projectsArray[count].style.top = "33.3%"
+              } else if (count === 2) {
+                projectsArray[count].style.top = "66.6%"
+              }
+              projectsArray[count].style.opacity = "1"
+              displayProjects(count + 1)
+            }, 500)
+          }
+        }
+
+        function displayProjectSquare(count) {
+          var projectArray = window.top.document.querySelector('.projects-border').children
+          var projectsTitle = window.top.document.querySelector('.projects-container__object--title')
+          if(count < 5) {
+            setTimeout(function() {
+              if(projectArray[count].className.includes("topLeft")) {
+                projectArray[count].style.width = "200px"
+                projectsTitle.style.top = "0"
+                projectsTitle.style.opacity = "1"
+              } else if (projectArray[count].className.includes("left")) {
+                projectArray[count].style.height = "400px"
+              } else if (projectArray[count].className.includes("bottom")) {
+                projectArray[count].style.width = "400px"
+                displayProjects(0)
+              } else if (projectArray[count].className.includes("right")) {
+                projectArray[count].style.height = "400px"
+              } else {
+                projectArray[count].style.width = "200px"
+              }
+              displayProjectSquare(count + 1)
+            }, 500)
+          }
+        }
+
+        function displayTechnologies(count) {
+          var techArray = window.top.document.querySelector('.webDev-container__content--technologies').children
+          if(count < 6) {
+            setTimeout(function() {
+              techArray[count].style.opacity = "1"
+              techArray[count].style.left = "0px"
+              displayTechnologies(count + 1)
+            }, 500)
+          }
+        }
+
+        function displayLine() {
+          var secondLine = window.top.document.querySelectorAll('.webDev-container__vertical-line')[1]
+          secondLine.style.opacity = "1"
+          secondLine.style.height = "200px"
+          secondLine.style.position = "absolute"
+          displayProjectSquare(0)
+        }
+
+        function binaryChange(count) {
+          var webTitle = window.top.document.querySelector('.webDev-container__title').children[0]
+          var webTitleArray = webTitle.innerHTML.split(" ")
+          var webDevArray = "Web Development".split("")
+          if(count <= 15) {
+            setTimeout(function() {
+              webTitleArray[count] = webDevArray[count]
+              var newTitle = webTitleArray.join(" ")
+              webTitle.innerHTML = newTitle
+              count = count + 1
+              binaryChange(count)
+            }, 250)
+          } else if (count > 15 && webTitle.innerHTML.length === 29) {
+            webTitle.innerHTML = "Web Development"
+            displayLine()
+            clearInterval(webDevText)
+            webTitle.style.opacity = "1"
+            displayTechnologies(0)
+          }
+        }
+
+        function switchText() {
+          var webTitle = window.top.document.querySelector('.webDev-container').getBoundingClientRect()
+          var location = webTitle.y >= 0 ? webTitle.y + window.top.scrollY : window.top.scrollY - Math.abs(webTitle.y)
+          if(window.top.scrollY >= location) {
+            var currentTitle = window.top.document.querySelector('.webDev-container__title').children[0].innerHTML.split(" ")
+            if(currentTitle[0].includes("0")) {
+              var count = 0;
+              binaryChange(count)
+            }
+          }
+        }
+
+        // MT FUNCTION
+
+        function mario() {
+          var mario = window.top.document.querySelector('.mt-container__controller--mario');
+          mario.style.opacity = "1";
+          if (mario.style.top === "0px") {
+            mario.style.top = "-172px";
+          } else {
+            mario.style.top = "0px"
+          }
+        }
+
+        function showVideo() {
+          var list = window.top.document.querySelector('.mt-container__controller--list');
+          var video = window.top.document.querySelector('.mt-container__controller--video');
+          list.style.opacity = "1";
+          video.style.opacity = "1";
+          var marioAppear = setInterval(function() {
+            mario();
+          }, 10000);
+        }
+
+        function zoomGameboy() {
+          var gameboyContainer = window.top.document.querySelector('.mt-container__controller');
+          if (gameboyContainer.style.width) {
+            var width = parseInt(gameboyContainer.style.width.slice(0, -2));
+            gameboyContainer.style.width = (width + 10) + "px";
+            gameboyContainer.style.height = (width + 10) + "px";
+            if (gameboyContainer.style.width !== "600px") {
+              zoomGameboy();
+            } else {
+              setTimeout(function() {
+                showVideo();
+              }, 500);
+            };
+          } else {
+            gameboyContainer.style.width = "10px";
+            gameboyContainer.style.height = "10px";
+            zoomGameboy();
+          };
+        };
+
+        function mtTitle(count) {
+          var noteArray = window.top.document.querySelectorAll('.mt-container__note')
+          if (count < 14) {
+            setTimeout(function() {
+              var noteColor = noteArray[count].style.backgroundImage
+              if (noteColor.indexOf("Red") > 0) {
+                noteArray[count].children[0].style.color = "#C0392B"
+              } else if (noteColor.indexOf("Org") > 0) {
+                noteArray[count].children[0].style.color = "#E67E22"
+              } else if (noteColor.indexOf("Yel") > 0) {
+                noteArray[count].children[0].style.color = "#F1C40F"
+              } else if (noteColor.indexOf("Gre") > 0) {
+                noteArray[count].children[0].style.color = "#2ECC71"
+              } else if (noteColor.indexOf("Blu") > 0) {
+                noteArray[count].children[0].style.color = "#3498DB"
+              } else if (noteColor.indexOf("Pur") > 0) {
+                noteArray[count].children[0].style.color = "#9B59B6"
+              }
+              noteArray[count].style.top = "22%";
+              noteArray[count].style.transform = "translateY(-22%)";
+              mtTitleLetter(noteArray[count])
+              count = count + 1
+              mtTitle(count)
+            }, 250);
+          } else {
+            setTimeout(function() {
+              zoomGameboy()
+            }, 500);
+          }
+        }
+
+        function mtTitleLetter(node) {
+          setTimeout(function() {
+            node.style.backgroundImage = "unset"
+            node.children[0].style.display = "block"
+          }, 250)
+        }
+
+        function mtPointer() {
+          var pointer = window.top.document.querySelector('.mt-container__pointer')
+          var secondProject = window.top.document.querySelector('#second').getBoundingClientRect()
+          var mtLocation = secondProject.y >= 0 ? secondProject.y + window.top.scrollY : window.top.scrollY - Math.abs(secondProject.y)
+          if (window.top.scrollY >= mtLocation) {
+            clearInterval(mtSection)
+            pointer.style.transform = "rotate(180deg)"
+            var mtCount = 0
+            mtTitle(mtCount)
+          }
+        }
+
+        function pointerShake() {
+          var hand = window.top.document.querySelector('.mt-container__pointer')
+          if (hand.style.transform === "rotate(30deg)") {
+            hand.style.transform = "rotate(-30deg)"
+          } else {
+            hand.style.transform = "rotate(30deg)"
+          }
+        }
+
+        setTimeout(function() {
+          welcomeAppear()
+        }, 500)
+
+        setTimeout(function() {
+          welcomeName()
+        }, 1000)
+
+        var webDevText = setInterval(function() {
+          flashingText()
+          switchText()
+        }, 1000);
+
+        var mtSection = setInterval(function() {
+          pointerShake()
+          mtPointer()
+        }, 1000);
+
+        setInterval(function() {
+          checkHeight();
+          navbarVisible();
+          navbarSpan()
+        }, 10)
+      })
+    </script>
+  </body>
+</html>
